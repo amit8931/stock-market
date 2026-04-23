@@ -17,7 +17,9 @@ export default function Markets() {
               <div className="flex gap-4">
                 <Link href="/markets" className="text-blue-600 hover:text-blue-800 font-semibold">Markets</Link>
                 <Link href="/screener" className="text-blue-600 hover:text-blue-800">Screener</Link>
-                <Link href="/portfolio" className="text-blue-600 hover:text-blue-800">Portfolio</Link>
+                <Link href="/app" className="text-blue-600 hover:text-blue-800">User Panel</Link>
+                <Link href="/admin" className="text-purple-700 hover:text-purple-900">Admin</Link>
+                <Link href="/login" className="text-gray-700 hover:text-gray-900">Login</Link>
               </div>
             </div>
           </div>

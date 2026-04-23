@@ -4,6 +4,7 @@
   "description": "Signal Engine - Computes bullish/bearish signals from market data",
   "main": "src/main.py",
   "scripts": {
+    "build": "python -c \"import ast, pathlib; ast.parse(pathlib.Path('src/main.py').read_text(encoding='utf-8')); dist = pathlib.Path('dist'); dist.mkdir(exist_ok=True); (dist / 'build.ok').write_text('ok\\n', encoding='utf-8')\"",
     "dev": "python src/main.py",
     "start": "python src/main.py"
   },

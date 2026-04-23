@@ -4,6 +4,7 @@
   "description": "AI Engine - LLM-powered insights and explanations",
   "main": "src/main.py",
   "scripts": {
+    "build": "python -c \"import ast, pathlib; [ast.parse(pathlib.Path(file).read_text(encoding='utf-8')) for file in ['src/main.py', 'src/prompts.py']]; dist = pathlib.Path('dist'); dist.mkdir(exist_ok=True); (dist / 'build.ok').write_text('ok\\n', encoding='utf-8')\"",
     "dev": "python src/main.py",
     "start": "python src/main.py"
   },

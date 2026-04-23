@@ -1,0 +1,9 @@
+{
+  "name": "@stock-platform/db",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "migrate": "node scripts/run-sql.js migrations schema_migrations",
+    "seed": "node scripts/run-sql.js seeds seed_history"
+  }
+}

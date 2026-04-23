@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "AI-first decision intelligence layer for retail investors",
   "private": true,
+  "packageManager": "npm@11.9.0",
   "workspaces": [
     "apps/*",
     "packages/*",
@@ -13,8 +14,8 @@
     "build": "turbo run build",
     "lint": "turbo run lint",
     "test": "turbo run test",
-    "db:migrate": "cd db && npm run migrate",
-    "db:seed": "cd db && npm run seed"
+    "db:migrate": "npm --prefix db run migrate",
+    "db:seed": "npm --prefix db run seed"
   },
   "devDependencies": {
     "turbo": "^2.0.0",
