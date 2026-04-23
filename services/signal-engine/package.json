@@ -1,0 +1,11 @@
+{
+  "name": "@stock-platform/signal-engine",
+  "version": "0.1.0",
+  "description": "Signal Engine - Computes bullish/bearish signals from market data",
+  "main": "src/main.py",
+  "scripts": {
+    "dev": "python src/main.py",
+    "start": "python src/main.py"
+  },
+  "dependencies": {}
+}

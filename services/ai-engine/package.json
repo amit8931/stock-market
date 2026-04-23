@@ -1,0 +1,11 @@
+{
+  "name": "@stock-platform/ai-engine",
+  "version": "0.1.0",
+  "description": "AI Engine - LLM-powered insights and explanations",
+  "main": "src/main.py",
+  "scripts": {
+    "dev": "python src/main.py",
+    "start": "python src/main.py"
+  },
+  "dependencies": {}
+}

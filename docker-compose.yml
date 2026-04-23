@@ -1,0 +1,164 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: stock_postgres
+    environment:
+      POSTGRES_DB: ${DB_NAME:-stock_platform}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-password}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/migrations:/docker-entrypoint-initdb.d
+    networks:
+      - stock_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: stock_redis
+    ports:
+      - "6379:6379"
+    networks:
+      - stock_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # API Gateway
+  api-gateway:
+    build:
+      context: ./services/api-gateway
+      dockerfile: Dockerfile
+    container_name: stock_api_gateway
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      DB_HOST: postgres
+      REDIS_HOST: redis
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - stock_network
+
+  # Market Data Service
+  market-service:
+    build:
+      context: ./services/market-service
+      dockerfile: Dockerfile
+    container_name: stock_market_service
+    environment:
+      NODE_ENV: development
+      PORT: 3001
+      DB_HOST: postgres
+      REDIS_HOST: redis
+      FINNHUB_KEY: ${FINNHUB_KEY}
+      POLYGON_KEY: ${POLYGON_KEY}
+    ports:
+      - "3001:3001"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - stock_network
+
+  # Signal Engine (Python)
+  signal-engine:
+    build:
+      context: ./services/signal-engine
+      dockerfile: Dockerfile
+    container_name: stock_signal_engine
+    environment:
+      PYTHONUNBUFFERED: 1
+    ports:
+      - "3002:3002"
+    networks:
+      - stock_network
+
+  # AI Engine (Python)
+  ai-engine:
+    build:
+      context: ./services/ai-engine
+      dockerfile: Dockerfile
+    container_name: stock_ai_engine
+    environment:
+      PYTHONUNBUFFERED: 1
+      OPENAI_KEY: ${OPENAI_KEY}
+    ports:
+      - "3003:3003"
+    networks:
+      - stock_network
+
+  # WebSocket Service
+  websocket-service:
+    build:
+      context: ./services/websocket-service
+      dockerfile: Dockerfile
+    container_name: stock_websocket_service
+    environment:
+      NODE_ENV: development
+      PORT: 3004
+      REDIS_HOST: redis
+    ports:
+      - "3004:3004"
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - stock_network
+
+  # User Service
+  user-service:
+    build:
+      context: ./services/user-service
+      dockerfile: Dockerfile
+    container_name: stock_user_service
+    environment:
+      NODE_ENV: development
+      PORT: 3005
+      DB_HOST: postgres
+      JWT_SECRET: ${JWT_SECRET:-your-secret-key}
+    ports:
+      - "3005:3005"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - stock_network
+
+  # Frontend (Next.js)
+  web:
+    build:
+      context: ./apps/web
+      dockerfile: Dockerfile
+    container_name: stock_web
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:3000
+      NEXT_PUBLIC_WS_URL: ws://localhost:3004
+    ports:
+      - "3006:3000"
+    networks:
+      - stock_network
+
+volumes:
+  postgres_data:
+
+networks:
+  stock_network:
+    driver: bridge

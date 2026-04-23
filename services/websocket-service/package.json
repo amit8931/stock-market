@@ -1,0 +1,24 @@
+{
+  "name": "@stock-platform/websocket-service",
+  "version": "0.1.0",
+  "description": "WebSocket Service - Real-time updates and streaming",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "ts-node src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "lint": "eslint src/**/*.ts"
+  },
+  "dependencies": {
+    "socket.io": "^4.6.1",
+    "redis": "^4.6.10",
+    "dotenv": "^16.3.1",
+    "@stock-platform/shared-types": "*",
+    "@stock-platform/config": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.4.0",
+    "ts-node": "^10.9.1"
+  }
+}

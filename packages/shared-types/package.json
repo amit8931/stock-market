@@ -1,0 +1,13 @@
+{
+  "name": "@stock-platform/shared-types",
+  "version": "0.1.0",
+  "description": "Shared TypeScript types for all services",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.4.0"
+  }
+}

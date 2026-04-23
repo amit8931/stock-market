@@ -1,0 +1,26 @@
+{
+  "name": "stock-intelligence-platform",
+  "version": "0.1.0",
+  "description": "AI-first decision intelligence layer for retail investors",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "services/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev --parallel",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "db:migrate": "cd db && npm run migrate",
+    "db:seed": "cd db && npm run seed"
+  },
+  "devDependencies": {
+    "turbo": "^2.0.0",
+    "typescript": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "@stock-platform/market-service",
+  "version": "0.1.0",
+  "description": "Market Data Service - Ingests and normalizes market data",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "ts-node src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "lint": "eslint src/**/*.ts"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "dotenv": "^16.3.1",
+    "pg": "^8.10.0",
+    "redis": "^4.6.10",
+    "@stock-platform/shared-types": "*",
+    "@stock-platform/config": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.4.0",
+    "ts-node": "^10.9.1"
+  }
+}
