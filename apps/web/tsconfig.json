@@ -3,6 +3,7 @@
   "compilerOptions": {
     "jsx": "preserve",
     "module": "esnext",
+    "moduleResolution": "bundler",
     "lib": ["DOM", "DOM.Iterable", "ES2020"],
     "baseUrl": ".",
     "paths": {
